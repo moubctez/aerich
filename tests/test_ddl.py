@@ -88,7 +88,7 @@ def test_alter_column_default():
     if isinstance(Migrate.ddl, PostgresDDL):
         assert ret == 'ALTER TABLE "category" ALTER COLUMN "name" DROP DEFAULT'
     else:
-        assert ret == None
+        assert ret is None
 
     ret = Migrate.ddl.alter_column_default(Category, Category._meta.fields_map.get("created_at"))
     if isinstance(Migrate.ddl, PostgresDDL):
@@ -96,13 +96,13 @@ def test_alter_column_default():
             ret == 'ALTER TABLE "category" ALTER COLUMN "created_at" SET DEFAULT CURRENT_TIMESTAMP'
         )
     else:
-        assert ret == None
+        assert ret is None
 
     ret = Migrate.ddl.alter_column_default(User, User._meta.fields_map.get("avatar"))
     if isinstance(Migrate.ddl, PostgresDDL):
         assert ret == 'ALTER TABLE "user" ALTER COLUMN "avatar" SET DEFAULT \'\''
     else:
-        assert ret == None
+        assert ret is None
 
 
 def test_alter_column_null():
@@ -110,7 +110,7 @@ def test_alter_column_null():
     if isinstance(Migrate.ddl, PostgresDDL):
         assert ret == 'ALTER TABLE "category" ALTER COLUMN "name" SET NOT NULL'
     else:
-        assert ret == None
+        assert ret is None
 
 
 def test_set_comment():
@@ -118,13 +118,13 @@ def test_set_comment():
     if isinstance(Migrate.ddl, PostgresDDL):
         assert ret == 'COMMENT ON COLUMN "category"."name" IS NULL'
     else:
-        assert ret == None
+        assert ret is None
 
     ret = Migrate.ddl.set_comment(Category, Category._meta.fields_map.get("user"))
     if isinstance(Migrate.ddl, PostgresDDL):
         assert ret == 'COMMENT ON COLUMN "category"."user" IS \'User\''
     else:
-        assert ret == None
+        assert ret is None
 
 
 def test_drop_column():
